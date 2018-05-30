@@ -1,6 +1,6 @@
-bottle
+pandas
 numpy
 scikit-learn
 scipy
-bokeh
+matplotlib
 uwsgi
