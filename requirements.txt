@@ -1,0 +1,6 @@
+bottle
+numpy
+scikit-learn
+scipy
+bokeh
+uwsgi

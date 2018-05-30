@@ -1,0 +1,12 @@
+bokeh==0.12.13
+bottle==0.12.13
+Jinja2==2.10
+MarkupSafe==1.0
+numpy==1.14.2
+python-dateutil==2.6.1
+PyYAML==3.12
+scikit-learn==0.19.1
+scipy==1.0.0
+six==1.11.0
+tornado==4.5.3
+uWSGI==2.0.17
