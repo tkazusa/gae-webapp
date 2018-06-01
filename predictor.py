@@ -7,5 +7,11 @@ class Predictor:
     def __init__(self):
         self.model = joblib.load(MODEL_PATH)
 
+    def preprocess(self, data):
+        XXXXX
+
+        self.XXX = SS
+
+
     def predict(self):
         return self.model.predict(data)
