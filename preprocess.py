@@ -102,8 +102,12 @@ class Preprocesser():
     data = data.drop(['encodedTitle'], axis=1)
     data['Survived'] = data['Survived'].astype(int, copy=False)
 
-    data.to_csv("data/preprocessed.csv")
+   return PreprocessedData
 
+
+
+
+"""
     rf = RandomForestClassifier(n_estimators=100)
     rf.fit(data[['title',
                   'Embarked',
@@ -118,5 +122,4 @@ class Preprocesser():
                   'responsibleFor',
                   'accompaniedBy',
                   'unaccompaniedChild']], data['Survived'])
-
-    joblib.dump(rf, "rf.pkl")
+"""
