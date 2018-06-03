@@ -5,64 +5,68 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import preprocessing
 from sklearn.externals import joblib
 
-PATH = "data/titanic.csv"
 
+def preprocess(INPUT_DATA):
+    """Preprocess input data from form for the model
+    Args:
+       data: pandas DataFrame
+    Returns:
+       PreprocecssedData: pandas DataFrame
+    """
 
-class Preprocesser():
+    def deriveTitles(s):
+        title = re.search('(?:\S )(?P<title>\w*)', s).group('title')
 
-    def __init__(self):
-        self.data = data
+        if title == "Mr":             return "adult"
+        elif title == "Don":          return "gentry"
+        elif title == "Dona":         return "gentry"
+        elif title == "Miss":         return "miss" # we don't know whether miss is an adult or a child
+        elif title == "Col":          return "military"
+        elif title == "Rev":          return "other"
+        elif title == "Lady":         return "gentry"
+        elif title == "Master":       return "child"
+        elif title == "Mme":          return "adult"
+        elif title == "Captain":      return "military"
+        elif title == "Dr":           return "other"
+        elif title == "Mrs":          return "adult"
+        elif title == "Sir":          return "gentry"
+        elif title == "Jonkheer":     return "gentry"
+        elif title == "Mlle":         return "miss"
+        elif title == "Major":        return "military"
+        elif title == "Ms":           return "miss"
+        elif title == "the Countess": return "gentry"
+        else:                         return "other"
 
-    def preprocess():
+    def deriveChildren(age, parch):
+        if(age < 18):
+            return parch
+        else:
+            return 0
 
-        def deriveTitles():
-            title = re.search('(?:\S )(?P<title>\w*)', s).group('title')
+    def deriveParents(age, parch):
+        if(age > 17):
+            return parch
+        else:
+            return 0
 
-            if title == "Mr":             return "adult"
-            elif title == "Don":          return "gentry"
-            elif title == "Dona":         return "gentry"
-            elif title == "Miss":         return "miss" # we don't know whether miss is an adult or a child
-            elif title == "Col":          return "military"
-            elif title == "Rev":          return "other"
-            elif title == "Lady":         return "gentry"
-            elif title == "Master":       return "child"
-            elif title == "Mme":          return "adult"
-            elif title == "Captain":      return "military"
-            elif title == "Dr":           return "other"
-            elif title == "Mrs":          return "adult"
-            elif title == "Sir":          return "gentry"
-            elif title == "Jonkheer":     return "gentry"
-            elif title == "Mlle":         return "miss"
-            elif title == "Major":        return "military"
-            elif title == "Ms":           return "miss"
-            elif title == "the Countess": return "gentry"
-            else:                         return "other"
+    def deriveResponsibleFor(children, SibSp):
+        if(children > 0):
+            return children / (SibSp + 1)
+        else:
+            return 0
 
-        def deriveChildren(age, parch):
-            if(age < 18):
-                return parch
-            else:
-                return 0
-
-        def deriveParents(age, parch):
-            if(age > 17):
-                return parch
-            else:
-                return 0
-
-        def deriveResponsibleFor(children, SibSp):
-            if(children > 0):
-                return children / (SibSp + 1)
-            else:
-                return 0
-
-        def unaccompaniedChild(age, parch):
-            if((age < 16) & (parch == 0)):
-                return True
-            else:
+    def unaccompaniedChild(age, parch):
+        if((age < 16) & (parch == 0)):
+            return True
+        else:
                 return False
 
-    data = self.data
+    data = INPUT_DATA
+
+    if 'Survived' in data.columns:
+        data['Survived'] = data['Survived'].astype(int, copy=False)
+    else:
+        pass
 
     data["title"] = data.Name.apply(deriveTitles)
 
@@ -81,7 +85,7 @@ class Preprocesser():
     data = data.assign(children=data.apply(lambda row: deriveChildren(row['Age'], row['Parch']), axis = 1))
     data['parents'] = data.apply(lambda row: deriveParents(row['Age'], row['Parch']), axis = 1)
     data['responsibleFor'] = data.apply(lambda row: deriveResponsibleFor(row['children'], row['SibSp']), axis = 1)
-    data['accompaniedBy'] = data.apply(lambda row: deriveAccompaniedBy(row['parents'], row['SibSp']), axis = 1)
+    # data['accompaniedBy'] = data.apply(lambda row: deriveAccompaniedBy(row['parents'], row['SibSp']), axis = 1)
     data['unaccompaniedChild'] = data.apply(lambda row: unaccompaniedChild(row['Age'], row['Parch']), axis = 1)
 
     # drop unused columns
@@ -100,26 +104,5 @@ class Preprocesser():
     data['class'] = data['Pclass'].astype(int, copy=False)
     data = data.drop(['Pclass'], axis=1)
     data = data.drop(['encodedTitle'], axis=1)
-    data['Survived'] = data['Survived'].astype(int, copy=False)
-
-   return PreprocessedData
-
-
-
-
-"""
-    rf = RandomForestClassifier(n_estimators=100)
-    rf.fit(data[['title',
-                  'Embarked',
-                  'class',
-                  'Sex',
-                  'SibSpGroup1',
-                  'SibSpGroup2',
-                  'SibSpGroup3',
-                  'familySize',
-                  'children',
-                  'parents',
-                  'responsibleFor',
-                  'accompaniedBy',
-                  'unaccompaniedChild']], data['Survived'])
-"""
+    
+    return data
