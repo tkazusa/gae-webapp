@@ -1,5 +1,5 @@
 from collections import namedtuple
-from flask import Flask, request render_template
+from flask import Flask, request, render_template
 debug(True)
 
 from preprocess import Preprocesser
