@@ -1,11 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Titanic survival predicter</title>
-		<meta chartes="utf-8">
-	</head>
-	<body>
-		<h1>{{title}}</h1>
-	</body>
+<head>
+  <title>Survival predict</title>
+  <meta charset-"UTF-8">
+</head>
+<form action="/people" method="post">
+  <fieldset>
+    <legend align="left">From</legend>
+    <!-- Age -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="age">Age</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="number" min="0" style="width:5%;" name="age" required>
+      </div>
+    </div>
+    <!-- Name -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="name">Name</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="text" placeholder="name" name="name">
+      </div>
+    </div>
+    <!-- Sex -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="sex">Sex</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <select id="sex" name="sex">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+        </select>
+      </div>
+    </div>
+    <!-- pclass -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="pclass">Ticket class</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <select id="pclass" name="pclass">
+          <option value="1">1st</option>
+          <option value="2">2nd</option>
+          <option value="3">3rd</option>
+        </select>
+      </div>
+    </div>
+    <!-- SibSp -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="SibSp">	# of siblings / spouses aboard the Titanic</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="number" min="0" style="width:5%;" name="Sibsp" required>
+      </div>
+    </div>
+    <!-- parch -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="parch"># of parents / children aboard the Titanic</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="number" min="0" style="width:5%;" name="parch" required>
+      </div>
+    </div>
+    <!-- embarked -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="embarked">Port of Embarkation</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <select id="embarked" name="embarked">
+          <option value="C">Cherbourg</option>
+          <option value="Q">Queenstown</option>
+          <option value="S">Southampton</option>
+        </select>
+      </div>
+    </div>
+    <!-- cabin -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="cabin">Cabin</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="text" placeholder="cabin" name="cabin">
+        </select>
+      </div>
+    </div>
+    <!-- ticket -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="ticket">Ticket number</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="text" placeholder="ticket" name="ticket">
+        </select>
+      </div>
+    </div>
+  </fieldset>
+</form>
 </html>
-
