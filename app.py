@@ -8,8 +8,17 @@ from predict import Predictor
 
 class People:
     def _init_(self, INPUT_DATA):
-        self.XX = INPUT_DATA[]
-        self.XX = INPUT_DATA[]
+        self.PassengerId = INPUT_DATAi["PassengerId"]
+        self.Pclass = INPUT_DATA["Pclass"]
+        self.Name = INPUT_DATA["Name"]
+        self.Sex = INPUT_DATA["Sex"]
+        self.Age = INPUT_DATA["Age"]
+        self.SbSp = INPUT_DATA["SbSp"]
+        self.Parch = INPUT_DATA["Parch"]
+        self.Ticket = INPUT_DATA["Ticket"]
+        self.Fare = INPUT_DATA["Fare"]
+        self.Cabin = INPUT_DATA["Cabin"]
+        self.Embarked = INPUT_DATA["Embarked"]
 
     @property "people クラスに入れたらいい？"
     def status(self, INPUT_DTA):
@@ -38,14 +47,14 @@ def result():
                   "Sex": request.form["Sex"],
                   "Age": request.form["Age"],
                   "SbSp": request.form["Number of siblings / spouses aboard the Titanic"],
-                  "parch": request.form["Number of parents / thildren abord the Titanic"],
+                  "Parch": request.form["Number of parents / thildren abord the Titanic"],
                   "Ticket": request.form["Ticket number"]
                   "Fare": request.form["Passenger fare"]
                   "Cabin": request.form["Cabin number"]
                   "Embarked": request.form["Port of EMbarkation,
                                            C = Cherbourg,
-                                           Q = Queenstown,
-                                           S = Southampton"]
+                                           Q=Queenstown,
+                                           S=Southampton"]
                   }
     INPUT_DATA = pd.DataFrame(INPUT_DATA)
     people = People(INPUT_DATA)
