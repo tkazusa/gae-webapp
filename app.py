@@ -1,8 +1,7 @@
 from collections import namedtuple
 from flask import Flask, request, render_template
-debug(True)
 
-from preprocess import Preprocesser
+from preprocess import preprocess
 from predict import Predictor
 
 
@@ -20,7 +19,7 @@ class People:
         self.Cabin = INPUT_DATA["Cabin"]
         self.Embarked = INPUT_DATA["Embarked"]
 
-    @property "people クラスに入れたらいい？"
+    @property #people クラスに入れたらいい？
     def status(self, INPUT_DTA):
         # INPUT_DATA is a dataframe
         PreprocessedData = Preprocsser.preprocess(INPUT_DATA)
@@ -48,14 +47,13 @@ def result():
                   "Age": request.form["Age"],
                   "SbSp": request.form["Number of siblings / spouses aboard the Titanic"],
                   "Parch": request.form["Number of parents / thildren abord the Titanic"],
-                  "Ticket": request.form["Ticket number"]
-                  "Fare": request.form["Passenger fare"]
-                  "Cabin": request.form["Cabin number"]
-                  "Embarked": request.form["Port of EMbarkation,
-                                           C = Cherbourg,
-                                           Q=Queenstown,
-                                           S=Southampton"]
-                  }
+                  "Ticket": request.form["Ticket number"],
+                  "Fare": request.form["Passenger fare"],
+                  "Cabin": request.form["Cabin number"],
+                  "Embarked": request.form["Port of EMbarkation, \
+                                           C=Cherbourg, \
+                                           Q=Queenstown, \
+                                           S=Southampton"]}
     INPUT_DATA = pd.DataFrame(INPUT_DATA)
     people = People(INPUT_DATA)
     return render_template('result.html',
