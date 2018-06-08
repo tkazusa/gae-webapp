@@ -3,11 +3,11 @@ from flask import Flask, request, render_template
 
 from preprocess import preprocess
 from predict import Predictor
-
+app = Flask(__name__)
 
 class People:
     def _init_(self, INPUT_DATA):
-        self.PassengerId = INPUT_DATAi["PassengerId"]
+        self.PassengerId = INPUT_DATA["PassengerId"]
         self.Pclass = INPUT_DATA["Pclass"]
         self.Name = INPUT_DATA["Name"]
         self.Sex = INPUT_DATA["Sex"]
@@ -20,9 +20,9 @@ class People:
         self.Embarked = INPUT_DATA["Embarked"]
 
     @property #people クラスに入れたらいい？
-    def status(self, INPUT_DTA):
+    def status(self, INPUT_DATA):
         # INPUT_DATA is a dataframe
-        PreprocessedData = Preprocsser.preprocess(INPUT_DATA)
+        PreprocessedData = preprocess(INPUT_DATA)
         # preprocessed data is a dataframe
         status = Predictor.predict(PreprocessedData)
         return status
@@ -33,12 +33,12 @@ def index(title):
     return render_template('templates/index.html', title=title)
 
 
-@app.route('/survival_predict', method=['GET'])
+@app.route('/survival_predict', methods=['GET'])
 def render_input_form():
     return render_template('upload.html')
 
 
-@app.route('/survival_predict', method=['POST'])
+@app.route('/survival_predict', methods=['POST'])
 def result():
     INPUT_DATA = {"PassengerId": request.form["Passengeer Id"],
                   "Pclass": request.form["Tciket class"],

@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.externals import joblib
-from settings import MODEL_PATH
+from configs.settings import MODEL_PATH
 
 
 class Predictor:
