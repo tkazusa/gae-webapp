@@ -30,12 +30,12 @@ class People:
 
 @app.route('/<title>')
 def index(title):
-    return render_template('templates/index.html', title=title)
+    return render_template('index.html', title=title)
 
 
-@app.route('/survival_predict', methods=['GET'])
-def render_input_form():
-    return render_template('upload.html')
+#@app.route('/survival_predict', methods=['GET'])
+#def render_input_form():
+#    return render_template('index.html')
 
 
 @app.route('/survival_predict', methods=['POST'])
