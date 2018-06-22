@@ -40,7 +40,7 @@ def index(title):
 #    return render_template('index.html')
 
 
-@app.route('/survival_predict', methods=['POST'])
+@app.route('/', methods=['POST'])
 def result():
     INPUT_DATA = {"PassengerId": request.form["Passengeer Id"],
                   "Pclass": request.form["Tciket class"],
