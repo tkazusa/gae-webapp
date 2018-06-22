@@ -1,4 +1,6 @@
 from collections import namedtuple
+
+import pandas as pd
 from flask import Flask, request, render_template
 
 from preprocess import preprocess
@@ -54,8 +56,9 @@ def result():
                                            C=Cherbourg, \
                                            Q=Queenstown, \
                                            S=Southampton"]}
+
     INPUT_DATA = pd.DataFrame(INPUT_DATA)
     people = People(INPUT_DATA)
     return render_template('result.html',
-                           status=People.status
+                           status=people.status
                            )
