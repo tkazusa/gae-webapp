@@ -8,25 +8,15 @@ from predict import Predictor
 app = Flask(__name__)
 
 class People:
-    def _init_(self, INPUT_DATA):
-        self.PassengerId = INPUT_DATA["PassengerId"]
-        self.Pclass = INPUT_DATA["Pclass"]
-        self.Name = INPUT_DATA["Name"]
-        self.Sex = INPUT_DATA["Sex"]
-        self.Age = INPUT_DATA["Age"]
-        self.SbSp = INPUT_DATA["SbSp"]
-        self.Parch = INPUT_DATA["Parch"]
-        self.Ticket = INPUT_DATA["Ticket"]
-        self.Fare = INPUT_DATA["Fare"]
-        self.Cabin = INPUT_DATA["Cabin"]
-        self.Embarked = INPUT_DATA["Embarked"]
+    def __init__(self, INPUT_DATA):
+        self.DATA = INPUT_DATA
 
-    @property #people クラスに入れたらいい？
-    def status(self, INPUT_DATA):
+    def status(self):
         # INPUT_DATA is a dataframe
-        PreprocessedData = preprocess(INPUT_DATA)
+        PreprocessedData = preprocess(self.DATA)
         # preprocessed data is a dataframe
-        status = Predictor.predict(PreprocessedData)
+        model = Predictor()
+        status = model.predict(PreprocessedData)
         return status
 
 
@@ -35,30 +25,30 @@ def index(title):
     return render_template('index.html', title=title)
 
 
-#@app.route('/survival_predict', methods=['GET'])
-#def render_input_form():
-#    return render_template('index.html')
+@app.route('/survival_predict', methods=['GET'])
+def render_input_form():
+    return render_template('index.html')
 
 
-@app.route('/', methods=['POST'])
+@app.route('/survival_predict', methods=['POST'])
 def result():
-    INPUT_DATA = {"PassengerId": request.form["Passengeer Id"],
-                  "Pclass": request.form["Tciket class"],
-                  "Name": request.form["Name"],
-                  "Sex": request.form["Sex"],
-                  "Age": request.form["Age"],
-                  "SbSp": request.form["Number of siblings / spouses aboard the Titanic"],
-                  "Parch": request.form["Number of parents / thildren abord the Titanic"],
-                  "Ticket": request.form["Ticket number"],
-                  "Fare": request.form["Passenger fare"],
-                  "Cabin": request.form["Cabin number"],
-                  "Embarked": request.form["Port of EMbarkation, \
-                                           C=Cherbourg, \
-                                           Q=Queenstown, \
-                                           S=Southampton"]}
+    INPUT_DATA = pd.DataFrame({
+        "Pclass": [request.form["pclass"]],
+        "Name": [request.form["name"]],
+        "Ticket": [request.form["ticket"]],
+        "Sex": [request.form["sex"]],
+        "Age": [request.form["age"]],
+        "SibSp": [request.form["Sibsp"]],
+        "Parch": [request.form["parch"]],
+        "Cabin": [request.form["cabin"]],
+        "Embarked": [request.form["embarked"]]})
 
-    INPUT_DATA = pd.DataFrame(INPUT_DATA)
     people = People(INPUT_DATA)
-    return render_template('result.html',
-                           status=people.status
-                           )
+    status = people.status()
+    if status == 1:
+        status = "dead"
+    else: status = "alive"
+    return render_template('result.html', status=status)
+
+if __name__ == "__main__":
+    app.run(debug=False, host="0.0.0.0", port=3000)

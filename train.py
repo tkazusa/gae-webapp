@@ -9,20 +9,8 @@ DATA_PATH = "data/titanic.csv"
 
 if __name__ == "__main__":
     TRAIN_DATA = pd.read_csv(DATA_PATH)
-    PreprocessedData = preprocess(TRAIN_DATA)
+    X, y = preprocess(TRAIN_DATA)
     rf = RandomForestClassifier(n_estimators=100)
-    rf.fit(PreprocessedData[['title',
-                       'Embarked',
-                       'class',
-                       'Sex',
-                       'SibSpGroup1',
-                       'SibSpGroup2',
-                       'SibSpGroup3',
-                       'familySize',
-                       'children',
-                       'parents',
-                       'responsibleFor',
-                       # 'accompaniedBy',
-                       'unaccompaniedChild']], PreprocessedData['Survived'])
+    rf.fit(X, y)
 
-    joblib.dump(rf, "rf.pkl")
+    joblib.dump(rf, "models/rf.pkl")

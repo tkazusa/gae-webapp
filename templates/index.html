@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Survival predict</title>
+  <title>survival predict</title>
   <meta charset-"UTF-8">
 </head>
-<form action="/people" method="post">
+<form action="/survival_predict" method="post">
   <fieldset>
     <legend align="left">From</legend>
     <!-- Age -->
@@ -25,6 +25,16 @@
         <input type="text" placeholder="name" name="name">
       </div>
     </div>
+	<!-- Name -->
+    <div class="input-group fluid">
+      <div class="col-sm-12 col-md-2">
+        <label for="name">Ticket</label>
+      </div>
+      <div class="col-sm-12 col-md">
+        <input type="text" placeholder="ticket" name="ticket">
+      </div>
+    </div>
+
     <!-- Sex -->
     <div class="input-group fluid">
       <div class="col-sm-12 col-md-2">
@@ -91,16 +101,7 @@
         </select>
       </div>
     </div>
-    <!-- ticket -->
-    <div class="input-group fluid">
-      <div class="col-sm-12 col-md-2">
-        <label for="ticket">Ticket number</label>
-      </div>
-      <div class="col-sm-12 col-md">
-        <input type="text" placeholder="ticket" name="ticket">
-        </select>
-      </div>
-    </div>
   </fieldset>
+  <input value="send" type="submit" />
 </form>
 </html>

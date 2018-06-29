@@ -1,1 +1,1 @@
-MODEL_PATH = 'rf.pkl'
+MODEL_PATH = 'models/rf.pkl'

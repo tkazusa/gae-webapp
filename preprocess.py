@@ -6,14 +6,13 @@ from sklearn import preprocessing
 from sklearn.externals import joblib
 
 
-def preprocess(INPUT_DATA):
+def preprocess(data):
     """Preprocess input data from form for the model
     Args:
        data: pandas DataFrame
     Returns:
        PreprocecssedData: pandas DataFrame
     """
-
     def deriveTitles(s):
         title = re.search('(?:\S )(?P<title>\w*)', s).group('title')
 
@@ -61,12 +60,8 @@ def preprocess(INPUT_DATA):
         else:
                 return False
 
-    data = INPUT_DATA
-
-    if 'Survived' in data.columns:
-        data['Survived'] = data['Survived'].astype(int, copy=False)
-    else:
-        pass
+    data = data.dropna(how="any")
+    data = data.astype({"Pclass": int, "Age": int, "SibSp": int, "Parch": int})
 
     data["title"] = data.Name.apply(deriveTitles)
 
@@ -89,7 +84,8 @@ def preprocess(INPUT_DATA):
     data['unaccompaniedChild'] = data.apply(lambda row: unaccompaniedChild(row['Age'], row['Parch']), axis = 1)
 
     # drop unused columns
-    data = data.drop(['Name', 'Cabin', 'Fare', 'Parch', 'SibSp', 'Ticket', 'title'], axis=1)
+    print(data.columns)
+    data = data.drop(['Name', 'Cabin', 'Parch', 'SibSp', 'title', 'Ticket'], axis=1)
 
     # label encode string features
     categorical_names = {}
@@ -104,5 +100,9 @@ def preprocess(INPUT_DATA):
     data['class'] = data['Pclass'].astype(int, copy=False)
     data = data.drop(['Pclass'], axis=1)
     data = data.drop(['encodedTitle'], axis=1)
-    
-    return data
+ 
+    if 'Survived' in data.columns:
+        data['Survived'] = data['Survived'].astype(int, copy=False)
+        return data.drop(['Survived'], axis=1), data['Survived']
+    else:
+        return data
