@@ -20,9 +20,9 @@ class People:
         return status
 
 
-@app.route('/<title>')
-def index(title):
-    return render_template('index.html', title=title)
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/survival_predict', methods=['GET'])
