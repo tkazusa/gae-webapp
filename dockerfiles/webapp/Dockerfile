@@ -1,0 +1,13 @@
+FROM python:3.5.4
+MAINTAINER taketoshi.kazusa@gmail.com
+
+# install python depends
+COPY webapp /app/webapp
+COPY requirements.txt /app/requirements.txt
+RUN ls /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+
+
+
+
