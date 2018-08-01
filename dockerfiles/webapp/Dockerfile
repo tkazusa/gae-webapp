@@ -8,9 +8,7 @@ COPY requirements.txt /app/requirements.txt
 RUN ls /app
 WORKDIR /app
 
-
-RUN pip install -r requirements.txt
-RUN 
+RUN make install
 
 
 
