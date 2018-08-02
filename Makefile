@@ -11,7 +11,9 @@ install: requirements.txt
 	pip install -r requirements.txt
 
 run: 
-	docker run -itd -P -p 33000:3000 --name $(CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
+	docker run -d -P -p 33000:3000 --name $(CONTAINER_NAME) $(DOCKER_IMAGE_NAME) \
+	python3 webapp/app.py
+
 
 setup-files: Dockerfile
 
