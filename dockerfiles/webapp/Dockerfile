@@ -10,5 +10,4 @@ WORKDIR /app
 
 RUN make install
 
-
-
+CMD ["/bin/bash"]

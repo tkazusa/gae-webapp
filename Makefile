@@ -11,7 +11,7 @@ install: requirements.txt
 	pip install -r requirements.txt
 
 run: 
-	docker run -itd -P --name $(CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
+	docker run -itd -P -p 33000:3000 --name $(CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
 
 setup-files: Dockerfile
 
